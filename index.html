@@ -1,0 +1,566 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Prit Dhanani · AI Engineer</title>
+<meta name="description" content="Prit Dhanani, AI Engineer in Germany. LLM fine-tuning, retrieval-augmented generation and evaluation, built to run on-premise.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#E8ECF0; --raise:#F4F6F8; --ink:#16243A; --muted:#53607A; --line:#C8D0DA;
+  --cobalt:#2B47D9; --signal:#D9861C; --soft:#DCE2EA;
+  --display:"Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --body:"IBM Plex Sans", "Helvetica Neue", Arial, system-ui, sans-serif;
+  color-scheme: light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#111A27; --raise:#172234; --ink:#E4E9F1; --muted:#97A3B7; --line:#2A3850;
+    --cobalt:#8297FF; --signal:#F2B157; --soft:#1C2940; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#111A27; --raise:#172234; --ink:#E4E9F1; --muted:#97A3B7; --line:#2A3850;
+  --cobalt:#8297FF; --signal:#F2B157; --soft:#1C2940; color-scheme: dark;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 72px)}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:1.0625rem;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--cobalt);outline-offset:3px;border-radius:4px}
+.wrap{width:min(1160px,100% - 2.5rem);margin-inline:auto}
+h1,h2,h3{font-family:var(--display);font-weight:600;letter-spacing:-.02em;line-height:1.05;margin:0}
+
+/* nav */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:color-mix(in srgb,var(--paper) 86%,transparent);backdrop-filter:blur(10px)}
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:color-mix(in srgb,var(--paper) 86%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .3s}
+.nav.scrolled{border-bottom-color:var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:1rem}
+.mark{font-family:var(--display);font-weight:800;font-size:1.15rem;text-decoration:none;letter-spacing:-.03em}
+.mark span{color:var(--cobalt)}
+.nav ul{display:flex;gap:1.6rem;list-style:none;margin:0;padding:0;font-size:.95rem}
+.nav ul a{text-decoration:none;color:var(--muted)}
+.nav ul a:hover{color:var(--ink)}
+@media (max-width:720px){.nav ul li:not(.keep){display:none}}
+
+/* hero */
+.hero{position:relative;overflow:hidden;min-height:min(92vh,860px);display:flex;align-items:center}
+#field{position:absolute;inset:0;width:100%;height:100%}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1.15fr .85fr;gap:3rem;align-items:center;padding-block:4rem 5rem;pointer-events:none}
+.hero .wrap a,.hero .wrap button{pointer-events:auto}
+.hero h1{font-size:clamp(3.4rem,9vw,7.6rem);font-weight:800;letter-spacing:-.045em;line-height:.9}
+.hero h1 .l2{display:block;padding-left:.5em}
+.role{font-family:var(--display);font-size:clamp(1.2rem,2.2vw,1.6rem);font-weight:400;margin:1.6rem 0 .8rem;max-width:30ch;line-height:1.25}
+.lede{color:var(--muted);max-width:52ch;margin:0 0 2rem}
+.ctas{display:flex;flex-wrap:wrap;gap:.75rem}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 1.25rem;border-radius:999px;font-weight:500;text-decoration:none;font-size:.98rem;border:1.5px solid var(--ink);transition:background .2s,color .2s,transform .2s}
+.btn.primary{background:var(--ink);color:var(--paper)}
+.btn:hover{transform:translateY(-2px)}
+.btn.primary:hover{background:var(--cobalt);border-color:var(--cobalt)}
+.btn.ghost:hover{background:var(--ink);color:var(--paper)}
+.portrait{justify-self:center;position:relative;width:min(400px,80vw);aspect-ratio:1}
+.portrait img{width:100%;height:100%;object-fit:cover;border-radius:50%;position:relative;z-index:1;box-shadow:0 30px 60px -30px rgba(22,36,58,.55)}
+.portrait::before{content:"";position:absolute;inset:-14px;border-radius:50%;border:1.5px dashed var(--cobalt);opacity:.55;animation:spin 60s linear infinite}
+.portrait .tag{position:absolute;z-index:2;background:var(--raise);border:1px solid var(--line);border-radius:999px;padding:.45rem .9rem;font-size:.85rem;white-space:nowrap;box-shadow:0 8px 20px -12px rgba(0,0,0,.4)}
+.portrait .t1{left:-8%;bottom:16%}
+.portrait .t2{right:-6%;top:12%}
+.portrait .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#2DB36A;margin-right:.45rem;box-shadow:0 0 0 0 rgba(45,179,106,.6);animation:pulse 2.2s infinite}
+.hint{position:absolute;right:1.25rem;bottom:1.1rem;font-size:.8rem;color:var(--muted);z-index:2}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{70%{box-shadow:0 0 0 8px rgba(45,179,106,0)}100%{box-shadow:0 0 0 0 rgba(45,179,106,0)}}
+.intro > *{opacity:0;transform:translateY(18px);animation:rise .9s cubic-bezier(.2,.7,.2,1) forwards}
+.intro > *:nth-child(2){animation-delay:.12s}.intro > *:nth-child(3){animation-delay:.22s}.intro > *:nth-child(4){animation-delay:.32s}
+.portrait{opacity:0;transform:scale(.94);animation:rise .9s .2s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes rise{to{opacity:1;transform:none}}
+@media (max-width:860px){
+  .hero .wrap{grid-template-columns:1fr;padding-block:2.5rem 4rem;gap:2.5rem}
+  .portrait{order:-1;width:min(260px,64vw)}
+  .portrait .t1{left:-18%}.portrait .t2{right:-14%}
+  .hero h1 .l2{padding-left:0}
+  .hint{display:none}
+}
+
+/* sections */
+section{padding-block:clamp(4rem,9vw,7rem)}
+.sec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:2rem;margin-bottom:3rem;align-items:end}
+.sec-head h2{font-size:clamp(2.2rem,5vw,3.6rem)}
+.sec-head p{color:var(--muted);margin:0;max-width:56ch}
+@media (max-width:760px){.sec-head{grid-template-columns:1fr;gap:1rem}}
+
+/* about */
+.about{background:var(--ink);color:var(--paper)}
+.about .wrap{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:4rem}
+.about blockquote{margin:0;font-family:var(--display);font-size:clamp(1.6rem,3.2vw,2.4rem);line-height:1.2;letter-spacing:-.02em;font-weight:400}
+.about blockquote em{font-style:normal;color:var(--signal)}
+.about .facts{display:grid;gap:1.4rem;align-content:start}
+.about .facts div{border-top:1px solid color-mix(in srgb,var(--paper) 25%,transparent);padding-top:1rem}
+.about .facts b{display:block;font-family:var(--display);font-size:1.25rem;font-weight:600}
+.about .facts span{opacity:.75;font-size:.95rem}
+@media (max-width:860px){.about .wrap{grid-template-columns:1fr;gap:2.5rem}}
+
+/* experience timeline */
+.timeline{list-style:none;margin:0;padding:0;position:relative}
+.timeline::before{content:"";position:absolute;left:11px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--cobalt),var(--line))}
+.job{position:relative;padding-left:3rem;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:2rem;padding-bottom:3.5rem}
+.job:last-child{padding-bottom:0}
+.job::before{content:"";position:absolute;left:4px;top:6px;width:16px;height:16px;border-radius:50%;background:var(--paper);border:3px solid var(--cobalt)}
+.job.now::before{background:var(--cobalt)}
+.job h3{font-size:1.5rem}
+.job .co{color:var(--cobalt);font-weight:500;margin:.35rem 0 .15rem}
+.job .when{color:var(--muted);font-size:.92rem}
+.job ul{margin:0;padding-left:1.1rem}
+.job li{margin-bottom:.6rem}
+.job li::marker{color:var(--cobalt)}
+@media (max-width:760px){.job{grid-template-columns:1fr;gap:.8rem}}
+
+/* featured projects */
+.work{background:var(--raise)}
+.feature{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:3rem;align-items:center;padding-block:3rem;border-top:1px solid var(--line)}
+.feature:first-of-type{border-top:0;padding-top:0}
+.feature:nth-of-type(even) .viz{order:-1}
+.feature h3{font-size:clamp(1.7rem,3vw,2.3rem);margin-bottom:.4rem}
+.feature .kicker{color:var(--cobalt);font-weight:500;margin:0 0 1rem}
+.feature p{margin:0 0 1rem;max-width:58ch}
+.metrics{display:flex;flex-wrap:wrap;gap:1.6rem;margin:1.4rem 0}
+.metrics div b{display:block;font-family:var(--display);font-size:2rem;font-weight:800;letter-spacing:-.03em;color:var(--ink);line-height:1}
+.metrics div span{font-size:.88rem;color:var(--muted)}
+.stack{display:flex;flex-wrap:wrap;gap:.4rem;margin:0 0 1.2rem;padding:0;list-style:none}
+.stack li{font-size:.82rem;padding:.25rem .65rem;border-radius:6px;background:var(--soft);color:var(--ink)}
+.link{font-weight:500;color:var(--cobalt);text-decoration:none;border-bottom:1.5px solid currentColor;padding-bottom:1px}
+.viz{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:1.6rem;min-height:300px;display:flex;flex-direction:column;justify-content:center}
+.viz svg{width:100%;height:auto;overflow:visible}
+.viz .cap{font-size:.85rem;color:var(--muted);margin-top:.8rem}
+@media (max-width:860px){.feature{grid-template-columns:1fr;gap:1.8rem}.feature:nth-of-type(even) .viz{order:0}}
+
+/* viz details */
+.svgtxt{font-family:var(--body);font-size:13px;fill:var(--ink)}
+.svgmut{font-family:var(--body);font-size:12px;fill:var(--muted)}
+.node{fill:var(--raise);stroke:var(--line);stroke-width:1.5}
+.node.hot{stroke:var(--cobalt)}
+.flow{fill:none;stroke:var(--cobalt);stroke-width:2;stroke-dasharray:6 7;opacity:.85}
+.in .flow{animation:dash 1.2s linear infinite}
+@keyframes dash{to{stroke-dashoffset:-26}}
+.bar-bg{fill:var(--soft)}
+.bar{transform-box:fill-box;transform-origin:left;transform:scaleX(0);transition:transform 1.6s cubic-bezier(.2,.7,.2,1)}
+.in .bar{transform:scaleX(1)}
+.bar.b2{transition-delay:.5s}
+.layer{fill:var(--raise);stroke:var(--line);stroke-width:1.5}
+.tok{fill:var(--signal)}
+.in .tok{animation:drop 3.6s cubic-bezier(.5,0,.3,1) infinite}
+@keyframes drop{0%{transform:translateY(0);opacity:0}8%{opacity:1}30%{transform:translateY(64px)}55%{transform:translateY(128px)}80%{transform:translateY(192px);opacity:1}100%{transform:translateY(212px);opacity:0}}
+
+/* more projects */
+.more{margin-top:4rem}
+.more h3{font-size:1.5rem;margin-bottom:1.2rem}
+.rows{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.rows li a{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,2fr) 7.5rem;gap:1.5rem;align-items:baseline;padding:1.15rem .5rem;border-bottom:1px solid var(--line);text-decoration:none;transition:background .2s,padding .25s}
+.rows li a:hover{background:var(--paper);padding-left:1rem}
+.rows .n{font-family:var(--display);font-weight:600;font-size:1.12rem}
+.rows .d{color:var(--muted);font-size:.96rem}
+.rows .t{font-size:.82rem;color:var(--cobalt);white-space:nowrap;text-align:right}
+@media (max-width:760px){.rows .t{text-align:left}}
+@media (max-width:760px){.rows li a{grid-template-columns:1fr;gap:.25rem}}
+
+/* skills */
+.skills{display:grid;gap:0;border-top:1px solid var(--line)}
+.skill{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,3fr);gap:2rem;padding:1.3rem 0;border-bottom:1px solid var(--line)}
+.skill h3{font-size:1.15rem;padding-top:.2rem}
+.chips{display:flex;flex-wrap:wrap;gap:.45rem}
+.chips span{padding:.35rem .8rem;border:1px solid var(--line);border-radius:999px;font-size:.92rem;background:var(--raise);transition:border-color .2s,color .2s}
+.chips span:hover{border-color:var(--cobalt);color:var(--cobalt)}
+@media (max-width:760px){.skill{grid-template-columns:1fr;gap:.7rem}}
+
+/* education etc */
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2.5rem}
+.grid3 h3{font-size:1.2rem;margin-bottom:1rem;padding-bottom:.6rem;border-bottom:2px solid var(--ink)}
+.entry{margin-bottom:1.3rem}
+.entry b{display:block;font-weight:600}
+.entry span{display:block;color:var(--muted);font-size:.94rem}
+@media (max-width:860px){.grid3{grid-template-columns:1fr}}
+
+/* thesis callout */
+.thesis{background:var(--cobalt);color:#fff;border-radius:28px;padding:clamp(2rem,5vw,4rem);display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:2.5rem;position:relative;overflow:hidden}
+.thesis h2{font-size:clamp(2rem,4.4vw,3.2rem);color:#fff}
+.thesis p{margin:1rem 0 0;max-width:52ch;opacity:.92}
+.thesis dl{margin:0;display:grid;gap:1rem;align-content:center}
+.thesis dt{font-size:.85rem;opacity:.75}
+.thesis dd{margin:0;font-family:var(--display);font-size:1.3rem;font-weight:600}
+.thesis .btn{border-color:#fff;color:var(--cobalt);background:#fff;margin-top:1.6rem}
+.thesis .btn:hover{background:transparent;color:#fff}
+.thesis svg{position:absolute;right:-60px;bottom:-80px;width:340px;opacity:.14;pointer-events:none}
+:root[data-theme="dark"] .thesis,.dark-thesis{color:#fff}
+@media (max-width:860px){.thesis{grid-template-columns:1fr}}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .thesis{background:#2B47D9}:root:not([data-theme="light"]) .thesis .btn{color:#2B47D9}}
+
+/* contact */
+.contact{text-align:left}
+.contact h2{font-size:clamp(2.6rem,7vw,5.4rem);font-weight:800;letter-spacing:-.04em;max-width:14ch}
+.contact .mail{display:inline-block;margin-top:2rem;font-family:var(--display);font-size:clamp(1.3rem,3.4vw,2.2rem);color:var(--cobalt);text-decoration:none;border-bottom:2px solid currentColor;word-break:break-all}
+.socials{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:2.2rem}
+footer{border-top:1px solid var(--line);padding-block:2rem;color:var(--muted);font-size:.9rem}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .intro > *,.portrait{opacity:1;transform:none}
+  .bar{transform:scaleX(1)}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="wrap">
+    <a class="mark" href="#top">Prit<span>.</span></a>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#work">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li class="keep"><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <canvas id="field" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="intro">
+      <h1>Prit<span class="l2">Dhanani</span></h1>
+      <p class="role">AI engineer. I fine-tune, align and evaluate language models that run on your own hardware.</p>
+      <p class="lede">Working student at INFINITE Mind in Munich and M.Sc. AI &amp; Robotics student at Hochschule Hof. I build RAG and fine-tuning pipelines for companies that can’t send their data to an external API.</p>
+      <div class="ctas">
+        <a class="btn primary" href="mailto:Dhananipreet101@gmail.com">Email me</a>
+        <a class="btn ghost" href="assets/Prit_Dhanani_CV.pdf" download>Download CV</a>
+        <a class="btn ghost" href="https://github.com/preetdhanani" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+    <div class="portrait">
+      <img src="assets/prit-dhanani.jpg" alt="Portrait of Prit Dhanani in a navy blazer" width="640" height="640">
+      <div class="tag t1"><span class="dot"></span>Open to thesis from Oct 2026</div>
+      <div class="tag t2">Munich · Hof, Bavaria</div>
+    </div>
+  </div>
+  <p class="hint" id="hint">Your cursor is a query. The five nearest documents light up.</p>
+</header>
+
+<section class="about" id="about">
+  <div class="wrap">
+    <blockquote>I take general-purpose language models and make them reliable in narrow, high-stakes domains, with supervised fine-tuning, DPO and retrieval, measured end to end.</blockquote>
+    <div class="facts">
+      <div><b>Privacy first</b><span>On-premise pipelines with no external API calls, built for data-residency rules.</span></div>
+      <div><b>Small hardware, big models</b><span>SFT and DPO on 7B and 8B models with a single 16 GB GPU.</span></div>
+      <div><b>Evaluation over vibes</b><span>Reference queries, faithfulness tracking and honest baselines.</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Experience</h2>
+      <p>Two years shipping AI to real clients, first in India and now in Munich.</p>
+    </div>
+    <ol class="timeline">
+      <li class="job now">
+        <div>
+          <h3>Generative AI Engineer</h3>
+          <p class="co">INFINITE Mind GmbH, Munich</p>
+          <p class="when">Working student, Sep 2025 to now</p>
+        </div>
+        <ul>
+          <li>Designed and deployed RAG pipelines, chatbots and agentic workflows with LangChain, LlamaIndex and FastAPI. Retrieval got 35% more efficient.</li>
+          <li>Built on-premise LLM adaptation and RAG pipelines that run without external APIs, so enterprise data stays in-house.</li>
+          <li>Built an agentic system that writes content and business proposals. A job that took hours now takes under 2 minutes.</li>
+          <li>Owned delivery from requirements to deployment and shipped 3 production systems to enterprise clients.</li>
+        </ul>
+      </li>
+      <li class="job">
+        <div>
+          <h3>AI Engineer</h3>
+          <p class="co">Woxxin Solution Pvt. Ltd, India</p>
+          <p class="when">Oct 2023 to Jul 2024</p>
+        </div>
+        <ul>
+          <li>Fine-tuned open-source LLMs with PyTorch and LoRA on domain data. Chatbot answer accuracy went up 22%.</li>
+          <li>Sole owner of client-facing AI products, building custom enterprise chatbots on Azure AI and Azure OpenAI.</li>
+          <li>Shipped predictive ML models with TensorFlow, Scikit-learn, Docker and CI/CD, cutting deployment cycles by 30%.</li>
+          <li>Built automated data ingestion with MLflow tracking for live performance and drift detection.</li>
+        </ul>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="work" id="work">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Projects</h2>
+      <p>Three systems I’d walk you through in an interview, then everything else on my GitHub.</p>
+    </div>
+
+    <article class="feature">
+      <div>
+        <h3>Local LLM Training &amp; Optimization Suite</h3>
+        <p class="kicker">On-premise SFT and DPO alignment</p>
+        <p>A training platform that runs supervised fine-tuning and DPO on 7B and 8B models, Llama 3 included, on one 16 GB GPU. Datasets, logs and checkpoints never leave the machine.</p>
+        <p>Each job runs in its own subprocess, so the OS gets all CUDA memory back when it ends. Preference data follows a strict prompt, chosen and rejected schema, and a React dashboard streams loss and GPU metrics live.</p>
+        <div class="metrics">
+          <div><b>60%</b><span>less GPU memory</span></div>
+          <div><b>2.4×</b><span>training throughput</span></div>
+          <div><b>&lt;100 ms</b><span>dashboard updates</span></div>
+        </div>
+        <ul class="stack"><li>PyTorch</li><li>TRL</li><li>QLoRA / NF4</li><li>Transformers</li><li>FastAPI</li><li>React</li><li>CUDA</li></ul>
+        <a class="link" href="https://github.com/preetdhanani/Local-llm-training-optimization" target="_blank" rel="noopener">View on GitHub</a>
+      </div>
+      <div class="viz reveal" aria-label="GPU memory before and after optimisation">
+        <svg viewBox="0 0 420 220" role="img">
+          <text class="svgmut" x="0" y="18">Fine-tuning an 8B model, VRAM used</text>
+          <text class="svgtxt" x="0" y="62">Full precision</text>
+          <rect class="bar-bg" x="0" y="72" width="420" height="34" rx="8"/>
+          <rect class="bar" x="0" y="72" width="420" height="34" rx="8" fill="var(--muted)" opacity=".55"/>
+          <text class="svgtxt" x="410" y="94" text-anchor="end" style="fill:var(--paper)">over budget</text>
+          <text class="svgtxt" x="0" y="142">NF4 + QLoRA + checkpointing + paged optimizers</text>
+          <rect class="bar-bg" x="0" y="152" width="420" height="34" rx="8"/>
+          <rect class="bar b2" x="0" y="152" width="168" height="34" rx="8" fill="var(--cobalt)"/>
+          <line x1="300" y1="44" x2="300" y2="200" stroke="var(--signal)" stroke-width="2" stroke-dasharray="4 4"/>
+          <text class="svgmut" x="304" y="214">16 GB card limit</text>
+        </svg>
+      </div>
+    </article>
+
+    <article class="feature">
+      <div>
+        <h3>Production RAG Platform</h3>
+        <p class="kicker">Hybrid retrieval, reranking and live evaluation</p>
+        <p>BM25 keyword search and FAISS vector search run side by side, then a cross-encoder reranks the merged results. Query expansion helps with vague questions and prompt compression keeps the context small.</p>
+        <p>An ingestion pipeline turns PDFs, Markdown, HTML and crawled docs into one index. MLflow tracks retrieval scores, latency and answer faithfulness against reference queries.</p>
+        <div class="metrics">
+          <div><b>+35%</b><span>retrieval accuracy</span></div>
+          <div><b>−40%</b><span>tokens per request</span></div>
+        </div>
+        <ul class="stack"><li>LlamaIndex</li><li>LangChain</li><li>FAISS</li><li>BM25</li><li>sentence-transformers</li><li>MLflow</li><li>Docker</li></ul>
+        <a class="link" href="https://github.com/preetdhanani/Llamaindex-Quest-Semantic-Crawl-to-Answer-Engine-main" target="_blank" rel="noopener">View on GitHub</a>
+      </div>
+      <div class="viz reveal" aria-label="Diagram of the hybrid retrieval pipeline">
+        <svg viewBox="0 0 420 240" role="img">
+          <path class="flow" d="M70 120 C110 120 110 60 150 60"/>
+          <path class="flow" d="M70 120 C110 120 110 180 150 180"/>
+          <path class="flow" d="M250 60 C285 60 285 120 300 120"/>
+          <path class="flow" d="M250 180 C285 180 285 120 300 120"/>
+          <path class="flow" d="M380 120 L405 120"/>
+          <rect class="node" x="0" y="98" width="70" height="44" rx="12"/>
+          <text class="svgtxt" x="35" y="125" text-anchor="middle">Query</text>
+          <rect class="node" x="150" y="38" width="100" height="44" rx="12"/>
+          <text class="svgtxt" x="200" y="58" text-anchor="middle">BM25</text>
+          <text class="svgmut" x="200" y="74" text-anchor="middle">keywords</text>
+          <rect class="node" x="150" y="158" width="100" height="44" rx="12"/>
+          <text class="svgtxt" x="200" y="178" text-anchor="middle">FAISS</text>
+          <text class="svgmut" x="200" y="194" text-anchor="middle">meaning</text>
+          <rect class="node hot" x="300" y="98" width="80" height="44" rx="12"/>
+          <text class="svgtxt" x="340" y="125" text-anchor="middle">Rerank</text>
+          <circle cx="412" cy="120" r="7" fill="var(--signal)"/>
+          <text class="svgmut" x="0" y="232">Faithfulness and latency logged to MLflow on every query</text>
+        </svg>
+      </div>
+    </article>
+
+    <article class="feature">
+      <div>
+        <h3>Deck Engine</h3>
+        <p class="kicker">Schema-constrained LLM generation, v1.0.0</p>
+        <p>Turns a short brief into an on-brand, editable PowerPoint. Layouts, chart types and template cloning are decided in code. The model only writes text and data.</p>
+        <p>Every field is checked three times: in the prompt, as a JSON schema and again after generation. If the model has nothing true to say it leaves the field empty. Failed items retry with the exact error and go to a human after repeated failure. Anthropic, Gemini and local Ollama sit behind one interface.</p>
+        <ul class="stack"><li>Python 3.13</li><li>Pydantic</li><li>JSON Schema</li><li>python-pptx</li><li>Anthropic</li><li>Gemini</li><li>Ollama</li></ul>
+        <a class="link" href="https://github.com/preetdhanani/Trelis--dacke-engine" target="_blank" rel="noopener">View on GitHub</a>
+      </div>
+      <div class="viz reveal" aria-label="Three validation layers every generated field passes through">
+        <svg viewBox="0 0 420 260" role="img">
+          <rect class="layer" x="60" y="40" width="300" height="40" rx="10"/>
+          <text class="svgtxt" x="80" y="65">Constraint in the prompt</text>
+          <rect class="layer" x="60" y="104" width="300" height="40" rx="10"/>
+          <text class="svgtxt" x="80" y="129">JSON schema at decode time</text>
+          <rect class="layer" x="60" y="168" width="300" height="40" rx="10"/>
+          <text class="svgtxt" x="80" y="193">Re-validated after generation</text>
+          <g class="tok"><circle cx="330" cy="16" r="9"/></g>
+          <path d="M370 188 C410 188 410 60 370 60" fill="none" stroke="var(--signal)" stroke-width="2" stroke-dasharray="4 5"/>
+          <text class="svgmut" x="380" y="128" transform="rotate(90 380 128)" text-anchor="middle">retry with error</text>
+          <rect x="60" y="226" width="300" height="30" rx="8" fill="var(--cobalt)" opacity=".14"/>
+          <text class="svgtxt" x="80" y="246">Valid slide, or flagged for a human</text>
+        </svg>
+      </div>
+    </article>
+
+    <div class="more">
+      <h3>More on GitHub</h3>
+      <ul class="rows">
+        <li><a href="https://github.com/preetdhanani/AskToYaana-Fullstack-personal-project" target="_blank" rel="noopener"><span class="n">AskToYaana</span><span class="d">Beauty product recommendations from a fine-tuned LLaMA 3.3, an LSTM intent classifier and a Django backend on Groq.</span><span class="t">Fine-tuning</span></a></li>
+        <li><a href="https://github.com/preetdhanani/SmartDiet-AI-Personalized-Diet-Recommendation-System-Full-stack-project" target="_blank" rel="noopener"><span class="n">SmartDiet AI</span><span class="d">ML picks a diet type, an LLM writes the meal plan. We caught label leakage that faked perfect scores and reported realistic 70 to 85% baselines.</span><span class="t">ML + LLM</span></a></li>
+        <li><a href="https://github.com/preetdhanani/MLOps" target="_blank" rel="noopener"><span class="n">MLOps Pipeline</span><span class="d">End-to-end pipeline with MLflow, Docker, GitHub Actions and DagsHub. Deployment time dropped 40%.</span><span class="t">MLOps</span></a></li>
+        <li><a href="https://github.com/preetdhanani/InvoExtract" target="_blank" rel="noopener"><span class="n">InvoExtract</span><span class="d">Upload an invoice image and ask questions about it. OCR plus Gemini, 78% precision on answers.</span><span class="t">Document AI</span></a></li>
+        <li><a href="https://github.com/preetdhanani/QnA_ChatBot_with_Groq_Powered_with_GoogleGenAI" target="_blank" rel="noopener"><span class="n">PDF Q&amp;A Chatbot</span><span class="d">Chat with any PDF using Google GenAI embeddings and Groq inference.</span><span class="t">RAG</span></a></li>
+        <li><a href="https://github.com/preetdhanani/SentimentAnalysis" target="_blank" rel="noopener"><span class="n">BERT + LSTM Sentiment Engine</span><span class="d">Hybrid NLP model for customer feedback, served as a FastAPI microservice.</span><span class="t">NLP</span></a></li>
+        <li><a href="https://github.com/preetdhanani/ML-DL-Project-Tensorflow" target="_blank" rel="noopener"><span class="n">ML and DL with TensorFlow</span><span class="d">A collection of classic machine learning and deep learning experiments.</span><span class="t">Deep learning</span></a></li>
+        <li><a href="https://github.com/preetdhanani/Airline-Passenger-Referral-Analytics-and-Forecast" target="_blank" rel="noopener"><span class="n">Airline Referral Forecast</span><span class="d">Cleaning, analysis and models that predict whether passengers recommend an airline.</span><span class="t">Data science</span></a></li>
+        <li><a href="https://github.com/preetdhanani/Bachelor-Thesis" target="_blank" rel="noopener"><span class="n">Bachelor thesis</span><span class="d">Exploratory analysis of US accident data and diabetes prediction models.</span><span class="t">Research</span></a></li>
+        <li><a href="https://github.com/preetdhanani/Routine-and-Task-tracker-Goal-Tracker-app-" target="_blank" rel="noopener"><span class="n">Routine &amp; Goal Tracker</span><span class="d">A Next.js app for daily routines, tasks and goals.</span><span class="t">Full-stack</span></a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>What I work with</h2>
+      <p>The tools I use day to day, grouped by what they’re for.</p>
+    </div>
+    <div class="skills">
+      <div class="skill"><h3>Fine-tuning &amp; alignment</h3><div class="chips"><span>PyTorch</span><span>Hugging Face Transformers</span><span>TRL</span><span>SFT</span><span>DPO</span><span>RLHF</span><span>LoRA / QLoRA</span><span>CUDA</span></div></div>
+      <div class="skill"><h3>Retrieval &amp; agents</h3><div class="chips"><span>RAG</span><span>LangChain</span><span>LlamaIndex</span><span>FAISS</span><span>BM25</span><span>Reranking</span><span>CrewAI</span><span>Ollama</span></div></div>
+      <div class="skill"><h3>Evaluation &amp; MLOps</h3><div class="chips"><span>MLflow</span><span>W&amp;B</span><span>DVC</span><span>Docker</span><span>Kubernetes</span><span>GitHub Actions</span><span>GitLab CI</span></div></div>
+      <div class="skill"><h3>Cloud</h3><div class="chips"><span>AWS SageMaker</span><span>AWS Bedrock</span><span>Azure ML</span><span>Azure OpenAI</span></div></div>
+      <div class="skill"><h3>Classic ML &amp; data</h3><div class="chips"><span>TensorFlow</span><span>Keras</span><span>Scikit-learn</span><span>XGBoost</span><span>Pandas</span><span>NumPy</span><span>PostgreSQL</span></div></div>
+      <div class="skill"><h3>Apps</h3><div class="chips"><span>Python</span><span>FastAPI</span><span>Django</span><span>React</span><span>Streamlit</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="education" style="padding-top:0">
+  <div class="wrap grid3">
+    <div>
+      <h3>Education</h3>
+      <div class="entry"><b>M.Sc. AI and Robotics</b><span>Hochschule Hof, since Mar 2025</span><span>Applied deep learning, generative AI, Industry 4.0, predictive maintenance</span></div>
+      <div class="entry"><b>B.E. Information Technology</b><span>SCET (GTU), Surat, 2019 to 2023</span></div>
+    </div>
+    <div>
+      <h3>Research</h3>
+      <div class="entry"><b>Knowledge graph embeddings</b><span>Systematic review of KG-BERT and hyperbolic models for semantic search</span></div>
+      <div class="entry"><b>VAEs from the paper</b><span>Implemented Auto-Encoding Variational Bayes in PyTorch</span></div>
+      <div class="entry"><b>Siemens Amberg plant</b><span>Edge AI analysis and LLM-integrated factory workflows</span></div>
+    </div>
+    <div>
+      <h3>Certificates &amp; awards</h3>
+      <div class="entry"><b>AWS Certified AI Practitioner</b></div>
+      <div class="entry"><b>ML Hackathon 2.0, 2nd place</b><span>2023</span></div>
+      <div class="entry"><b>MYSY Scholarship</b><span>2019 to 2023</span></div>
+      <div class="entry"><b>Languages</b><span>English fluent, German B2, Hindi and Gujarati native</span></div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="thesis">
+      <div>
+        <h2>Looking for a Master’s thesis partner</h2>
+        <p>I want to build, compare and properly evaluate RAG and fine-tuning approaches on real engineering knowledge. If your team has the data and the problem, let’s talk.</p>
+        <a class="btn" href="mailto:Dhananipreet101@gmail.com?subject=Master%E2%80%99s%20thesis">Talk about a thesis</a>
+      </div>
+      <dl>
+        <div><dt>Start</dt><dd>October 2026</dd></div>
+        <div><dt>Length</dt><dd>6 months, full-time</dd></div>
+        <div><dt>Location</dt><dd>Munich</dd></div>
+      </dl>
+      <svg viewBox="0 0 200 200" aria-hidden="true"><g fill="none" stroke="#fff" stroke-width="2"><circle cx="100" cy="100" r="30"/><circle cx="100" cy="100" r="60"/><circle cx="100" cy="100" r="90"/></g></svg>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <h2>Have a model that needs to behave?</h2>
+    <a class="mail" href="mailto:Dhananipreet101@gmail.com">Dhananipreet101@gmail.com</a>
+    <div class="socials">
+      <a class="btn ghost" href="https://www.linkedin.com/in/prit-dhanani/" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn ghost" href="https://github.com/preetdhanani" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn ghost" href="https://huggingface.co/Prit84697" target="_blank" rel="noopener">Hugging Face</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap"><span>© 2026 Prit Dhanani</span><span>Hof and Munich, Germany</span></div>
+</footer>
+
+<script>
+(function(){
+  const nav=document.getElementById('nav');
+  addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>10),{passive:true});
+
+  // reveal the project diagrams once
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');}}),{threshold:.35});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // hero: an embedding space you can query with the cursor
+  const cv=document.getElementById('field'), ctx=cv.getContext('2d');
+  const hero=cv.parentElement;
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const topics=['retrieval','fine-tuning','alignment','evaluation','agents'];
+  let W=0,H=0,dpr=1,pts=[],centers=[],start=performance.now(),q={x:0,y:0,active:false};
+  const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  function gauss(){let u=0,v=0;while(!u)u=Math.random();while(!v)v=Math.random();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);}
+  function layout(){
+    dpr=Math.min(devicePixelRatio||1,2);
+    W=hero.clientWidth;H=hero.clientHeight;
+    cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);
+    const mobile=W<860;
+    const p=document.querySelector('.portrait').getBoundingClientRect(), h=hero.getBoundingClientRect();
+    const cx=p.left-h.left+p.width/2, cy=p.top-h.top+p.height/2;
+    const R=p.width*(mobile?.78:.86);
+    centers=topics.map((t,i)=>{const a=-Math.PI/2+i*(2*Math.PI/topics.length)+.35;const pad=mobile?40:90;return {x:Math.max(mobile?pad:W*.5,Math.min(W-pad,cx+Math.cos(a)*R)),y:Math.max(60,Math.min(H-60,cy+Math.sin(a)*R*.92)),t};});
+    const n=mobile?70:150, spread=mobile?26:40;
+    pts=Array.from({length:n},(_,i)=>{const c=i%centers.length;const C=centers[c];
+      return {c,sx:Math.random()*W,sy:Math.random()*H,tx:C.x+gauss()*spread,ty:C.y+gauss()*spread,ph:Math.random()*6.28,r:1.6+Math.random()*1.8};});
+    if(!q.active){q.x=cx;q.y=cy;}
+  }
+  const ease=t=>1-Math.pow(1-t,3);
+  function frame(now){
+    const t=reduce?1:Math.min((now-start)/1800,1), k=ease(t);
+    ctx.clearRect(0,0,W,H);
+    const ink=css('--ink'), cob=css('--cobalt'), sig=css('--signal'), mut=css('--muted');
+    // query wanders when nobody is pointing
+    if(!q.active){const s=now/1000;const c=centers[0]?centers:[{x:W/2,y:H/2}];
+      const mx=c.reduce((a,b)=>a+b.x,0)/c.length,my=c.reduce((a,b)=>a+b.y,0)/c.length;
+      q.x=mx+Math.cos(s*.45)*W*.16;q.y=my+Math.sin(s*.7)*H*.22;}
+    const pos=pts.map(p=>{const w=reduce?0:Math.sin(now/1400+p.ph)*3;
+      return {p,x:p.sx+(p.tx-p.sx)*k+w,y:p.sy+(p.ty-p.sy)*k+Math.cos(now/1600+p.ph)*3*(reduce?0:1)};});
+    // faint links inside each cluster
+    ctx.lineWidth=1;ctx.strokeStyle=cob;ctx.globalAlpha=.08*k;
+    for(let i=0;i<pos.length;i+=2){const a=pos[i],b=pos[(i+centers.length)%pos.length];if(a.p.c===b.p.c){ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();}}
+    // nearest neighbours to the query
+    const near=pos.map(o=>({o,d:(o.x-q.x)**2+(o.y-q.y)**2})).sort((a,b)=>a.d-b.d).slice(0,5);
+    const hot=new Set(near.map(n=>n.o));
+    if(t>=1){
+      ctx.globalAlpha=.9;ctx.strokeStyle=sig;ctx.lineWidth=1.4;
+      near.forEach((n,i)=>{ctx.globalAlpha=.85-i*.12;ctx.beginPath();ctx.moveTo(q.x,q.y);ctx.lineTo(n.o.x,n.o.y);ctx.stroke();});
+    }
+    pos.forEach(o=>{ctx.globalAlpha=hot.has(o)&&t>=1?1:.55;ctx.fillStyle=hot.has(o)&&t>=1?sig:(o.p.c%2?cob:mut);
+      ctx.beginPath();ctx.arc(o.x,o.y,hot.has(o)&&t>=1?o.p.r+2:o.p.r,0,6.283);ctx.fill();});
+    if(t>=1){
+      ctx.globalAlpha=1;ctx.font='600 12px "IBM Plex Sans", system-ui, sans-serif';ctx.fillStyle=ink;
+      near.forEach((n,i)=>ctx.fillText(String(i+1),n.o.x+7,n.o.y-6));
+      ctx.strokeStyle=sig;ctx.lineWidth=2;ctx.beginPath();ctx.arc(q.x,q.y,7,0,6.283);ctx.stroke();
+      ctx.fillStyle=mut;ctx.font='13px "IBM Plex Sans", system-ui, sans-serif';ctx.globalAlpha=.9;
+      if(W>=860)centers.forEach(c=>{ctx.fillText(c.t,c.x-ctx.measureText(c.t).width/2,c.y-52);});
+    }
+    ctx.globalAlpha=1;
+    if(!reduce||t<1)requestAnimationFrame(frame);
+  }
+  hero.addEventListener('pointermove',e=>{if(e.pointerType==='touch')return;const r=hero.getBoundingClientRect();q.x=e.clientX-r.left;q.y=e.clientY-r.top;q.active=true;});
+  hero.addEventListener('pointerleave',()=>{q.active=false;});
+  let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{layout();if(reduce)requestAnimationFrame(frame);},150);});
+  // wait for the portrait to settle before measuring
+  setTimeout(()=>{layout();start=performance.now();requestAnimationFrame(frame);},reduce?0:250);
+})();
+</script>
+</body>
+</html>
