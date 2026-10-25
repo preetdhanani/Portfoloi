@@ -157,6 +157,74 @@ section{padding-block:clamp(4rem,9vw,7rem)}
 .in .tok{animation:drop 3.6s cubic-bezier(.5,0,.3,1) infinite}
 @keyframes drop{0%{transform:translateY(0);opacity:0}8%{opacity:1}30%{transform:translateY(64px)}55%{transform:translateY(128px)}80%{transform:translateY(192px);opacity:1}100%{transform:translateY(212px);opacity:0}}
 
+/* ScoutFox browser demo */
+.viz:has(.sf){justify-content:flex-start;padding:1.1rem}
+.sf{container-type:inline-size;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--raise);font-size:12px;color:var(--ink);box-shadow:0 24px 40px -28px rgba(22,36,58,.5)}
+.sf-top{display:flex;align-items:center;gap:.6rem;padding:.5rem .7rem;background:var(--soft);border-bottom:1px solid var(--line)}
+.sf-dots{display:flex;gap:4px}.sf-dots i{width:8px;height:8px;border-radius:50%;background:var(--line)}
+.sf-tab{display:inline-flex;align-items:center;gap:.35rem;padding:.2rem .55rem;border-radius:7px 7px 0 0;background:var(--raise);border-top:2px solid var(--signal);font-weight:500;white-space:nowrap}
+.sf-tab b{width:7px;height:7px;border-radius:50%;background:var(--signal)}
+.sf-url{flex:1;min-width:0;padding:.22rem .65rem;border-radius:999px;background:var(--raise);border:1px solid var(--line);color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sf-body{display:grid;grid-template-columns:1fr}
+@container (min-width:440px){.sf-body{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr)}.sf-panel{border-top:0!important;border-left:1px solid var(--line)}}
+.sf-page{position:relative;min-height:230px;background:var(--paper);overflow:hidden}
+.sf-stage{position:absolute;inset:0;padding:1rem;opacity:0;visibility:hidden;transition:opacity .35s}
+.sf-stage.on{opacity:1;visibility:visible}
+.sf-blank{height:100%;display:grid;place-items:center;color:var(--muted)}
+.sf-site{font-family:var(--display);font-weight:800;font-size:1.25rem;letter-spacing:-.03em;margin-bottom:.8rem}
+.sf-search{display:flex;gap:.4rem;margin-bottom:1rem}
+.sf-search span{flex:1;min-height:1.9rem;padding:.4rem .6rem;border:1.5px solid var(--line);border-radius:8px;background:var(--raise);transition:border-color .2s}
+.sf-search span.focus{border-color:var(--cobalt)}
+.sf-search span.focus::after{content:"";display:inline-block;width:1px;height:1em;background:var(--ink);margin-left:1px;vertical-align:-2px;animation:sfblink 1s steps(1) infinite}
+.sf-search em{font-style:normal;padding:.4rem .7rem;border-radius:8px;background:var(--cobalt);color:#fff;font-weight:500}
+:root[data-theme="dark"] .sf-search em{color:#111A27}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .sf-search em{color:#111A27}}
+@keyframes sfblink{50%{opacity:0}}
+.sf-sk{height:8px;border-radius:4px;background:var(--soft);margin-bottom:.55rem}
+.w40{width:40%}.w50{width:50%}.w60{width:60%}.w70{width:70%}.w80{width:80%}
+.sf-res{padding:.55rem .65rem;border:1px solid var(--line);border-radius:9px;background:var(--raise);margin-bottom:.5rem;transition:border-color .25s,box-shadow .25s}
+.sf-res b{display:block;font-family:var(--display);font-size:.95rem}
+.sf-res span{color:var(--muted);font-size:.8rem}
+.sf-res.hit.mark{border-color:var(--signal);box-shadow:0 0 0 3px color-mix(in srgb,var(--signal) 25%,transparent)}
+.sf-scroll{transition:transform .9s cubic-bezier(.4,0,.2,1)}
+.sf-scroll.down{transform:translateY(-34px)}
+.sf-ver{display:flex;justify-content:space-between;align-items:center;margin:.3rem 0 .8rem;padding:.55rem .7rem;border:1px solid var(--line);border-radius:9px;background:var(--raise);transition:border-color .25s,box-shadow .25s}
+.sf-ver b{font-family:var(--display);font-size:1.1rem}
+.sf-ver.mark{border-color:var(--signal);box-shadow:0 0 0 3px color-mix(in srgb,var(--signal) 25%,transparent)}
+.viz .sf-cur{width:18px;height:18px;position:absolute;left:0;top:0;transform:translate(60%,40%);transition:transform .7s cubic-bezier(.4,0,.2,1);z-index:3;pointer-events:none;filter:drop-shadow(0 2px 3px rgba(0,0,0,.25))}
+.sf-ping{position:absolute;left:0;top:0;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;border:2px solid var(--signal);opacity:0;z-index:2;pointer-events:none}
+.sf-ping.go{animation:sfping .45s ease-out}
+@keyframes sfping{from{opacity:.9;transform:scale(.3)}to{opacity:0;transform:scale(1.3)}}
+.sf-panel{display:flex;flex-direction:column;gap:.55rem;padding:.7rem;border-top:1px solid var(--line);background:var(--raise);min-width:0}
+.sf-ph{display:flex;justify-content:space-between;align-items:center;font-weight:600}
+.sf-ph em{font-style:normal;font-weight:500;font-size:.75rem;padding:.12rem .5rem;border-radius:999px;background:var(--soft);color:var(--muted)}
+.sf-ph em.run{background:color-mix(in srgb,var(--signal) 22%,transparent);color:var(--ink)}
+.sf-ph em.ok{background:color-mix(in srgb,#2DB36A 25%,transparent);color:var(--ink)}
+.sf-task{min-height:2.4rem;padding:.45rem .6rem;border:1.5px solid var(--line);border-radius:9px;background:var(--paper);line-height:1.35}
+.sf-task.focus{border-color:var(--cobalt)}
+.sf-task.focus #sfQ::after{content:"";display:inline-block;width:1px;height:1em;background:var(--ink);margin-left:1px;vertical-align:-2px;animation:sfblink 1s steps(1) infinite}
+.sf-plan{list-style:none;margin:0;padding:0;display:grid;gap:.3rem}
+.sf-plan li{display:flex;gap:.45rem;align-items:center;color:var(--muted);opacity:0;transform:translateY(4px);transition:opacity .3s,transform .3s,color .2s}
+.sf-plan li.show{opacity:1;transform:none}
+.sf-plan li::before{content:"";flex:none;width:12px;height:12px;border-radius:4px;border:1.5px solid var(--line);background:var(--paper);transition:all .25s}
+.sf-plan li.doing{color:var(--ink)}
+.sf-plan li.doing::before{border-color:var(--signal);background:color-mix(in srgb,var(--signal) 35%,transparent)}
+.sf-plan li.done{color:var(--ink)}
+.sf-plan li.done::before{border-color:var(--cobalt);background:var(--cobalt);box-shadow:inset 0 0 0 2px var(--paper)}
+.sf-act{min-height:1.2em;color:var(--muted);font-size:.78rem}
+.sf-card{display:none;padding:.55rem .65rem;border-radius:10px;border:1px solid var(--line);background:var(--paper);line-height:1.4}
+.sf-card.show{display:block}
+.sf-card b{display:block;margin-bottom:.15rem}
+.sf-card small{color:var(--muted)}
+.sf-card.ok{border-color:#2DB36A}
+.sf-card.stop{border-color:var(--signal)}
+.sf-ctl{display:flex;gap:.45rem;margin-top:auto}
+.sf-ctl button{font:inherit;font-weight:500;padding:.4rem .8rem;border-radius:8px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer;transition:border-color .2s,color .2s}
+.sf-ctl button:hover:not(:disabled){border-color:var(--cobalt);color:var(--cobalt)}
+.sf-ctl button:focus-visible{outline:2px solid var(--cobalt);outline-offset:2px}
+.sf-ctl button:disabled{opacity:.45;cursor:default}
+@media (prefers-reduced-motion: reduce){.sf-cur{transition:none}.sf-search span.focus::after,.sf-task.focus #sfQ::after{animation:none}}
+
 /* more projects */
 .more{margin-top:4rem}
 .more h3{font-size:1.5rem;margin-bottom:1.2rem}
@@ -185,20 +253,6 @@ section{padding-block:clamp(4rem,9vw,7rem)}
 .entry b{display:block;font-weight:600}
 .entry span{display:block;color:var(--muted);font-size:.94rem}
 @media (max-width:860px){.grid3{grid-template-columns:1fr}}
-
-/* thesis callout */
-.thesis{background:var(--cobalt);color:#fff;border-radius:28px;padding:clamp(2rem,5vw,4rem);display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:2.5rem;position:relative;overflow:hidden}
-.thesis h2{font-size:clamp(2rem,4.4vw,3.2rem);color:#fff}
-.thesis p{margin:1rem 0 0;max-width:52ch;opacity:.92}
-.thesis dl{margin:0;display:grid;gap:1rem;align-content:center}
-.thesis dt{font-size:.85rem;opacity:.75}
-.thesis dd{margin:0;font-family:var(--display);font-size:1.3rem;font-weight:600}
-.thesis .btn{border-color:#fff;color:var(--cobalt);background:#fff;margin-top:1.6rem}
-.thesis .btn:hover{background:transparent;color:#fff}
-.thesis svg{position:absolute;right:-60px;bottom:-80px;width:340px;opacity:.14;pointer-events:none}
-:root[data-theme="dark"] .thesis,.dark-thesis{color:#fff}
-@media (max-width:860px){.thesis{grid-template-columns:1fr}}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .thesis{background:#2B47D9}:root:not([data-theme="light"]) .thesis .btn{color:#2B47D9}}
 
 /* contact */
 .contact{text-align:left}
@@ -310,43 +364,67 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
     <article class="feature">
       <div>
         <h3>ScoutFox AI Browser Agent</h3>
-        <p class="kicker">Autonomous web tasks with local or cloud LLMs</p>
-        <p>A Chrome extension (Manifest V3) and Python Playwright runner that let an LLM drive the browser: you type a goal, it plans the sites to visit, clicks, types and scrolls, and returns an answer checked against the pages it actually saw.</p>
-        <p>A LangGraph engine gives every site its own worker and step budget, reflects after each site to stop early or replan, and marks blocked sites instead of looping. Real clicks go through Chrome's debugger, a risk gate asks before buying, logging in or submitting, and every number in the result links back to its source page.</p>
+        <p class="kicker">An open-source Chrome extension that works in your browser for you</p>
+        <p>Write a task in plain words in the side panel and ScoutFox opens the websites, reads them, clicks, types and scrolls until it has your answer. It plans the work as a checklist, visits several sites, compares what it finds and checks off each step.</p>
+        <p>You stay in control. Every action appears in the side panel as it happens, and you can pause, resume or stop at any time. Agent tabs go into an orange ScoutFox group, tabs you open yourself are never touched, and each tab runs its own session. It never types passwords, card numbers or one-time codes, and it stops at a CAPTCHA so a person can pass it. The final card says whether the task is done, unconfirmed, failed or stopped by you, so a run that did not work never looks like a success.</p>
         <div class="metrics">
-          <div><b>8+</b><span>LLM providers</span></div>
-          <div><b>22</b><span>real pages in CI replay</span></div>
-          <div><b>6</b><span>effort levels</span></div>
+          <div><b>8+</b><span>model providers, local or cloud</span></div>
+          <div><b>1</b><span>session per tab</span></div>
+          <div><b>4</b><span>honest result states</span></div>
         </div>
-        <ul class="stack"><li>TypeScript</li><li>LangGraph.js</li><li>LangChain</li><li>Chrome MV3</li><li>CDP</li><li>Playwright</li><li>Python</li><li>Ollama</li><li>Vite</li></ul>
+        <ul class="stack"><li>Chrome extension</li><li>Side panel</li><li>TypeScript</li><li>Ollama</li><li>OpenAI-compatible APIs</li><li>MIT licence</li></ul>
         <a class="link" href="https://github.com/preetdhanani/ScoutFox_browser_agent" target="_blank" rel="noopener">View on GitHub</a>
       </div>
-      <div class="viz reveal" aria-label="Diagram of the ScoutFox planner, per-site workers and verified answer">
-        <svg viewBox="0 0 420 240" role="img">
-          <path class="flow" d="M70 120 C100 120 100 40 130 40"/>
-          <path class="flow" d="M70 120 L130 120"/>
-          <path class="flow" d="M70 120 C100 120 100 200 130 200"/>
-          <path class="flow" d="M220 40 C250 40 250 120 270 120"/>
-          <path class="flow" d="M220 120 L270 120"/>
-          <path class="flow" d="M220 200 C250 200 250 120 270 120"/>
-          <path class="flow" d="M380 120 L405 120"/>
-          <rect class="node" x="0" y="98" width="70" height="44" rx="12"/>
-          <text class="svgtxt" x="35" y="125" text-anchor="middle">Plan</text>
-          <rect class="node" x="130" y="18" width="90" height="44" rx="12"/>
-          <text class="svgtxt" x="175" y="38" text-anchor="middle">Site A</text>
-          <text class="svgmut" x="175" y="54" text-anchor="middle">worker</text>
-          <rect class="node" x="130" y="98" width="90" height="44" rx="12"/>
-          <text class="svgtxt" x="175" y="118" text-anchor="middle">Site B</text>
-          <text class="svgmut" x="175" y="134" text-anchor="middle">worker</text>
-          <rect class="node" x="130" y="178" width="90" height="44" rx="12"/>
-          <text class="svgtxt" x="175" y="198" text-anchor="middle">Site C</text>
-          <text class="svgmut" x="175" y="214" text-anchor="middle">blocked</text>
-          <rect class="node hot" x="270" y="98" width="110" height="44" rx="12"/>
-          <text class="svgtxt" x="325" y="118" text-anchor="middle">Reflect</text>
-          <text class="svgmut" x="325" y="134" text-anchor="middle">cross-check</text>
-          <circle cx="412" cy="120" r="7" fill="var(--signal)"/>
-          <text class="svgmut" x="0" y="238">Final answer audited against visited-page evidence</text>
-        </svg>
+      <div class="viz reveal">
+        <div class="sf" id="sf" role="group" aria-label="Animated demo of ScoutFox: a task is typed in the side panel, the agent browses and answers, and the user can pause or stop it">
+          <div class="sf-top" aria-hidden="true">
+            <span class="sf-dots"><i></i><i></i><i></i></span>
+            <span class="sf-tab"><b></b>ScoutFox</span>
+            <span class="sf-url" id="sfUrl">newtab</span>
+          </div>
+          <div class="sf-body">
+            <div class="sf-page" id="sfPage" aria-hidden="true">
+              <div class="sf-stage" data-s="blank"><div class="sf-blank">Your tabs stay yours</div></div>
+              <div class="sf-stage" data-s="search">
+                <div class="sf-site">npm</div>
+                <div class="sf-search"><span id="sfBox"></span><em id="sfBtn">Search</em></div>
+                <div class="sf-sk w60"></div><div class="sf-sk w40"></div>
+              </div>
+              <div class="sf-stage" data-s="results">
+                <div class="sf-res hit" id="sfHit"><b>react</b><span>React is a JavaScript library for building user interfaces.</span></div>
+                <div class="sf-res"><b>react-dom</b><span>React package for working with the DOM.</span></div>
+                <div class="sf-res"><b>react-router</b><span>Declarative routing for React.</span></div>
+              </div>
+              <div class="sf-stage" data-s="pkg">
+                <div class="sf-scroll" id="sfScroll">
+                  <div class="sf-site">react</div>
+                  <div class="sf-sk w80"></div><div class="sf-sk w60"></div><div class="sf-sk w70"></div><div class="sf-sk w50"></div>
+                  <div class="sf-ver" id="sfVer"><span>Version</span><b>19.x</b></div>
+                  <div class="sf-sk w60"></div>
+                </div>
+              </div>
+              <svg class="sf-cur" id="sfCur" viewBox="0 0 20 20" width="18" height="18"><path d="M3 2l13 7-6 1.6L7.4 17z" fill="var(--signal)" stroke="var(--paper)" stroke-width="1.4" stroke-linejoin="round"/></svg>
+              <i class="sf-ping" id="sfPing"></i>
+            </div>
+            <div class="sf-panel">
+              <div class="sf-ph"><span>ScoutFox</span><em id="sfState">Idle</em></div>
+              <div class="sf-task" id="sfTask"><span id="sfQ"></span></div>
+              <ol class="sf-plan" id="sfPlan">
+                <li>Open npmjs.com</li>
+                <li>Search for react</li>
+                <li>Open the package page</li>
+                <li>Read the latest version</li>
+              </ol>
+              <div class="sf-act" id="sfAct" aria-live="polite"></div>
+              <div class="sf-card" id="sfCard"></div>
+              <div class="sf-ctl">
+                <button type="button" id="sfMain">Pause</button>
+                <button type="button" id="sfStop">Stop</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="cap">Illustrative demo. You give it a task, it does the clicking, and you can pause or stop it at any step.</p>
       </div>
     </article>
 
@@ -500,24 +578,6 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
   </div>
 </section>
 
-<section style="padding-top:0">
-  <div class="wrap">
-    <div class="thesis">
-      <div>
-        <h2>Looking for a Master’s thesis partner</h2>
-        <p>I want to build, compare and properly evaluate RAG and fine-tuning approaches on real engineering knowledge. If your team has the data and the problem, let’s talk.</p>
-        <a class="btn" href="mailto:Dhananipreet101@gmail.com?subject=Master%E2%80%99s%20thesis">Talk about a thesis</a>
-      </div>
-      <dl>
-        <div><dt>Start</dt><dd>October 2026</dd></div>
-        <div><dt>Length</dt><dd>6 months, full-time</dd></div>
-        <div><dt>Location</dt><dd>Munich</dd></div>
-      </dl>
-      <svg viewBox="0 0 200 200" aria-hidden="true"><g fill="none" stroke="#fff" stroke-width="2"><circle cx="100" cy="100" r="30"/><circle cx="100" cy="100" r="60"/><circle cx="100" cy="100" r="90"/></g></svg>
-    </div>
-  </div>
-</section>
-
 <section class="contact" id="contact">
   <div class="wrap">
     <h2>Have a model that needs to behave?</h2>
@@ -603,6 +663,89 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
   let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{layout();if(reduce)requestAnimationFrame(frame);},150);});
   // wait for the portrait to settle before measuring
   setTimeout(()=>{layout();start=performance.now();requestAnimationFrame(frame);},reduce?0:250);
+})();
+</script>
+
+<script>
+// ScoutFox demo: a scripted run the visitor can pause, resume or stop
+(function(){
+  const root=document.getElementById('sf'); if(!root)return;
+  const $=id=>document.getElementById(id);
+  const page=$('sfPage'), cur=$('sfCur'), ping=$('sfPing'), plan=[...$('sfPlan').children];
+  const state=$('sfState'), act=$('sfAct'), card=$('sfCard'), main=$('sfMain'), stopBtn=$('sfStop'), task=$('sfTask');
+  const QUERY='What is the latest React version on npm?';
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let paused=false, stopped=false, visible=false, run=0, ended=true, started=false;
+
+  new IntersectionObserver(es=>{visible=es[0].isIntersecting;if(visible&&!started){started=true;if(reduce)finalState();else go();}},{threshold:.4}).observe(root);
+
+  const sleep=ms=>new Promise((res,rej)=>{const id=run;let left=ms;(function tick(){
+    if(id!==run)return rej('x'); if(stopped)return rej('stop');
+    if(paused||!visible){setTimeout(tick,120);return;}
+    if(left<=0)return res(); left-=60; setTimeout(tick,60);})();});
+  const setState=(t,c)=>{state.textContent=t;state.className=c||'';};
+  const stage=s=>page.querySelectorAll('.sf-stage').forEach(e=>e.classList.toggle('on',e.dataset.s===s));
+  const say=t=>{act.textContent=t;};
+  async function typeInto(el,text,speed){el.textContent='';for(const ch of text){el.textContent+=ch;await sleep(speed);}}
+  async function moveTo(el){const r=el.getBoundingClientRect(),p=page.getBoundingClientRect();
+    const x=r.left-p.left+Math.min(r.width*.5,60), y=r.top-p.top+r.height*.55;
+    cur.style.transform=`translate(${x}px,${y}px)`; ping.style.left=x+'px'; ping.style.top=y+'px'; await sleep(reduce?0:800);}
+  async function click(){ping.classList.remove('go');void ping.offsetWidth;ping.classList.add('go');await sleep(350);}
+  const mark=(i,s)=>{plan[i].className='show '+s;};
+  function reset(){
+    plan.forEach(li=>li.className='');card.className='sf-card';card.innerHTML='';say('');
+    $('sfUrl').textContent='newtab';stage('blank');$('sfQ').textContent='';$('sfBox').textContent='';
+    $('sfBox').classList.remove('focus');$('sfHit').classList.remove('mark');$('sfVer').classList.remove('mark');
+    $('sfScroll').classList.remove('down');cur.style.transform='translate(60%,40%)';
+    setState('Idle');
+  }
+  function setEnded(){ended=true;main.textContent='Run again';stopBtn.disabled=true;}
+  function setRunning(){ended=false;paused=false;stopped=false;main.textContent='Pause';stopBtn.disabled=false;}
+  function finalState(){
+    reset();$('sfQ').textContent=QUERY;plan.forEach((li,i)=>mark(i,'done'));stage('pkg');$('sfUrl').textContent='npmjs.com/package/react';
+    $('sfVer').classList.add('mark');showDone();setEnded();
+  }
+  function showDone(){setState('Done','ok');say('');card.className='sf-card show ok';
+    card.innerHTML='<b>Done: the latest React version is 19.x</b><small>Source: npmjs.com/package/react</small>';}
+
+  async function go(){
+    const id=++run; setRunning(); reset();
+    try{
+      task.classList.add('focus'); await sleep(500);
+      await typeInto($('sfQ'),QUERY,reduce?0:34); task.classList.remove('focus'); await sleep(350);
+      setState('Running','run'); say('Planning the task as a checklist');
+      for(let i=0;i<plan.length;i++){mark(i,'');plan[i].classList.add('show');await sleep(220);}
+      // 1
+      mark(0,'show doing'); say('Opening npmjs.com'); $('sfUrl').textContent='npmjs.com'; stage('search'); await sleep(900); mark(0,'show done');
+      // 2
+      mark(1,'show doing'); say('Click the search field'); await moveTo($('sfBox')); await click(); $('sfBox').classList.add('focus');
+      say('Type "react"'); await typeInto($('sfBox'),'react',reduce?0:110); await sleep(250);
+      say('Click Search'); await moveTo($('sfBtn')); await click(); $('sfBox').classList.remove('focus');
+      $('sfUrl').textContent='npmjs.com/search?q=react'; stage('results'); await sleep(700); mark(1,'show done');
+      // 3
+      mark(2,'show doing'); say('Click the first result'); await moveTo($('sfHit')); $('sfHit').classList.add('mark'); await click();
+      $('sfUrl').textContent='npmjs.com/package/react'; stage('pkg'); await sleep(700);
+      say('Scroll down'); $('sfScroll').classList.add('down'); await sleep(1000); mark(2,'show done');
+      // 4
+      mark(3,'show doing'); say('Read the version on the page'); await moveTo($('sfVer')); $('sfVer').classList.add('mark'); await sleep(900); mark(3,'show done');
+      showDone(); setEnded();
+      await sleep(9000); if(id===run&&!stopped)go();
+    }catch(e){
+      if(e==='stop'){
+        setState('Stopped'); say('');card.className='sf-card show stop';
+        const left=plan.filter(li=>!li.classList.contains('done')).length;
+        card.innerHTML='<b>Stopped by you</b><small>'+left+' step'+(left===1?'':'s')+' left unfinished, nothing reported as done</small>';
+        plan.forEach(li=>{if(li.classList.contains('doing'))li.className='show';});
+        setEnded();
+      }
+    }
+  }
+  main.addEventListener('click',()=>{
+    if(ended){stopped=false;paused=false;run++;go();return;}
+    paused=!paused; main.textContent=paused?'Resume':'Pause';
+    if(paused){setState('Paused');}else{setState('Running','run');}
+  });
+  stopBtn.addEventListener('click',()=>{if(!ended){stopped=true;paused=false;}});
 })();
 </script>
 </body>
