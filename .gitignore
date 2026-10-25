@@ -1,7 +1,3 @@
 # Local environment variables
 .env
 .DS_Store
-
-# Private notes (not part of the site)
-implementation_plan.md
-resume.md
