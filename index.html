@@ -223,7 +223,6 @@ section{padding-block:clamp(4rem,9vw,7rem)}
 .sf-ctl button:hover:not(:disabled){border-color:var(--cobalt);color:var(--cobalt)}
 .sf-ctl button:focus-visible{outline:2px solid var(--cobalt);outline-offset:2px}
 .sf-ctl button:disabled{opacity:.45;cursor:default}
-@media (prefers-reduced-motion: reduce){.sf-cur{transition:none}.sf-search span.focus::after,.sf-task.focus #sfQ::after{animation:none}}
 
 /* more projects */
 .more{margin-top:4rem}
@@ -263,7 +262,7 @@ footer{border-top:1px solid var(--line);padding-block:2rem;color:var(--muted);fo
 footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
 
 @media (prefers-reduced-motion: reduce){
-  *,*::before,*::after{animation:none!important;transition:none!important}
+  *:not(.sf):not(.sf *),*:not(.sf):not(.sf *)::before,*:not(.sf):not(.sf *)::after{animation:none!important;transition:none!important}
   .intro > *,.portrait{opacity:1;transform:none}
   .bar{transform:scaleX(1)}
 }
@@ -674,10 +673,10 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
   const page=$('sfPage'), cur=$('sfCur'), ping=$('sfPing'), plan=[...$('sfPlan').children];
   const state=$('sfState'), act=$('sfAct'), card=$('sfCard'), main=$('sfMain'), stopBtn=$('sfStop'), task=$('sfTask');
   const QUERY='What is the latest React version on npm?';
-  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const reduce=false;
   let paused=false, stopped=false, visible=false, run=0, ended=true, started=false;
 
-  new IntersectionObserver(es=>{visible=es[0].isIntersecting;if(visible&&!started){started=true;if(reduce)finalState();else go();}},{threshold:.4}).observe(root);
+  new IntersectionObserver(es=>{visible=es[0].isIntersecting;if(visible&&!started){started=true;go();}},{threshold:.4}).observe(root);
 
   const sleep=ms=>new Promise((res,rej)=>{const id=run;let left=ms;(function tick(){
     if(id!==run)return rej('x'); if(stopped)return rej('stop');
@@ -728,8 +727,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
       say('Scroll down'); $('sfScroll').classList.add('down'); await sleep(1000); mark(2,'show done');
       // 4
       mark(3,'show doing'); say('Read the version on the page'); await moveTo($('sfVer')); $('sfVer').classList.add('mark'); await sleep(900); mark(3,'show done');
-      showDone(); setEnded();
-      await sleep(9000); if(id===run&&!stopped)go();
+      showDone();
+      await sleep(3500); if(id===run&&!stopped)go();
     }catch(e){
       if(e==='stop'){
         setState('Stopped'); say('');card.className='sf-card show stop';
