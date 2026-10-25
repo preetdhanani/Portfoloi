@@ -304,8 +304,51 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
   <div class="wrap">
     <div class="sec-head">
       <h2>Projects</h2>
-      <p>Three systems I’d walk you through in an interview, then everything else on my GitHub.</p>
+      <p>Four systems I’d walk you through in an interview, then everything else on my GitHub.</p>
     </div>
+
+    <article class="feature">
+      <div>
+        <h3>ScoutFox AI Browser Agent</h3>
+        <p class="kicker">Autonomous web tasks with local or cloud LLMs</p>
+        <p>A Chrome extension (Manifest V3) and Python Playwright runner that let an LLM drive the browser: you type a goal, it plans the sites to visit, clicks, types and scrolls, and returns an answer checked against the pages it actually saw.</p>
+        <p>A LangGraph engine gives every site its own worker and step budget, reflects after each site to stop early or replan, and marks blocked sites instead of looping. Real clicks go through Chrome's debugger, a risk gate asks before buying, logging in or submitting, and every number in the result links back to its source page.</p>
+        <div class="metrics">
+          <div><b>8+</b><span>LLM providers</span></div>
+          <div><b>22</b><span>real pages in CI replay</span></div>
+          <div><b>6</b><span>effort levels</span></div>
+        </div>
+        <ul class="stack"><li>TypeScript</li><li>LangGraph.js</li><li>LangChain</li><li>Chrome MV3</li><li>CDP</li><li>Playwright</li><li>Python</li><li>Ollama</li><li>Vite</li></ul>
+        <a class="link" href="https://github.com/preetdhanani/ScoutFox_browser_agent" target="_blank" rel="noopener">View on GitHub</a>
+      </div>
+      <div class="viz reveal" aria-label="Diagram of the ScoutFox planner, per-site workers and verified answer">
+        <svg viewBox="0 0 420 240" role="img">
+          <path class="flow" d="M70 120 C100 120 100 40 130 40"/>
+          <path class="flow" d="M70 120 L130 120"/>
+          <path class="flow" d="M70 120 C100 120 100 200 130 200"/>
+          <path class="flow" d="M220 40 C250 40 250 120 270 120"/>
+          <path class="flow" d="M220 120 L270 120"/>
+          <path class="flow" d="M220 200 C250 200 250 120 270 120"/>
+          <path class="flow" d="M380 120 L405 120"/>
+          <rect class="node" x="0" y="98" width="70" height="44" rx="12"/>
+          <text class="svgtxt" x="35" y="125" text-anchor="middle">Plan</text>
+          <rect class="node" x="130" y="18" width="90" height="44" rx="12"/>
+          <text class="svgtxt" x="175" y="38" text-anchor="middle">Site A</text>
+          <text class="svgmut" x="175" y="54" text-anchor="middle">worker</text>
+          <rect class="node" x="130" y="98" width="90" height="44" rx="12"/>
+          <text class="svgtxt" x="175" y="118" text-anchor="middle">Site B</text>
+          <text class="svgmut" x="175" y="134" text-anchor="middle">worker</text>
+          <rect class="node" x="130" y="178" width="90" height="44" rx="12"/>
+          <text class="svgtxt" x="175" y="198" text-anchor="middle">Site C</text>
+          <text class="svgmut" x="175" y="214" text-anchor="middle">blocked</text>
+          <rect class="node hot" x="270" y="98" width="110" height="44" rx="12"/>
+          <text class="svgtxt" x="325" y="118" text-anchor="middle">Reflect</text>
+          <text class="svgmut" x="325" y="134" text-anchor="middle">cross-check</text>
+          <circle cx="412" cy="120" r="7" fill="var(--signal)"/>
+          <text class="svgmut" x="0" y="238">Final answer audited against visited-page evidence</text>
+        </svg>
+      </div>
+    </article>
 
     <article class="feature">
       <div>
