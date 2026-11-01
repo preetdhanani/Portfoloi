@@ -2,8 +2,7 @@
 
 Personal portfolio. Plain HTML, CSS and JS, no build step.
 
-Deploy with GitHub Pages: Settings > Pages > Deploy from branch > `main` / root.
+Live at https://portfolioprit.vercel.app/ (deployed on Vercel).
 
-- `index.html` the site
-- `assets/prit-dhanani.jpg` portrait
-- `assets/Prit_Dhanani_CV.pdf` CV behind the "Download CV" button
+- `index.html` the site, with the portrait photo embedded in it
+- `Prit_Dhanani_CV.pdf` the CV behind the "Download CV" button
