@@ -180,7 +180,7 @@ section{padding-block:clamp(4rem,9vw,7rem)}
 .viz.offscreen .flow,.viz.offscreen .tok{animation-play-state:paused}
 @keyframes drop{0%{transform:translateY(0);opacity:0}8%{opacity:1}30%{transform:translateY(64px)}55%{transform:translateY(128px)}80%{transform:translateY(192px);opacity:1}100%{transform:translateY(212px);opacity:0}}
 
-/* ScoutFox browser demo */
+/* Tarka browser demo */
 .viz:has(.sf){justify-content:flex-start;padding:1.1rem}
 .sf{container-type:inline-size;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--raise);font-size:12px;color:var(--ink);box-shadow:0 24px 40px -28px rgba(22,36,58,.5)}
 .sf-top{display:flex;align-items:center;gap:.6rem;padding:.5rem .7rem;background:var(--soft);border-bottom:1px solid var(--line)}
@@ -419,9 +419,9 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
 
     <article class="feature">
       <div>
-        <h3>ScoutFox</h3>
+        <h3>Tarka</h3>
         <p class="kicker">MCP-driven browser agent that operates the real browser, not a headless shim</p>
-        <p>Browser agents that puppet pages from outside get eaten by anti-bot defenses. ScoutFox is a Chrome MV3 extension that operates Chrome from the inside: real CDP hardware events, a viewport-ordered accessibility snapshot with stable element references, and a perception-action loop wired through the Model Context Protocol.</p>
+        <p>Browser agents that puppet pages from outside get eaten by anti-bot defenses. Tarka is a Chrome MV3 extension that operates Chrome from the inside: real CDP hardware events, a viewport-ordered accessibility snapshot with stable element references, and a perception-action loop wired through the Model Context Protocol.</p>
         <p>Nothing is reported on faith. Every claim is audited against an evidence ledger of visited pages before a run can finish, so hallucinated answers fail loudly instead of faking success. Vision-model coordinate spaces are normalized per provider, context compaction preserves KV-cache prefixes, and untrusted page content is demarcated to block prompt injection. One interface over Ollama, Claude, Gemini, GPT and NVIDIA NIM.</p>
         <div class="metrics">
           <div><b>MCP-driven</b><span>perception-action loop</span></div>
@@ -432,10 +432,10 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
         <a class="link" href="https://github.com/preetdhanani/ScoutFox_browser_agent" target="_blank" rel="noopener">View on GitHub</a>
       </div>
       <div class="viz reveal">
-        <div class="sf" id="sf" role="group" aria-label="Animated demo of ScoutFox: a task is typed in the side panel, the agent browses and answers, and the user can pause or stop it">
+        <div class="sf" id="sf" role="group" aria-label="Animated demo of Tarka: a task is typed in the side panel, the agent browses and answers, and the user can pause or stop it">
           <div class="sf-top" aria-hidden="true">
             <span class="sf-dots"><i></i><i></i><i></i></span>
-            <span class="sf-tab"><b></b>ScoutFox</span>
+            <span class="sf-tab"><b></b>Tarka</span>
             <span class="sf-url" id="sfUrl">newtab</span>
           </div>
           <div class="sf-body">
@@ -463,7 +463,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
               <i class="sf-ping" id="sfPing"></i>
             </div>
             <div class="sf-panel">
-              <div class="sf-ph"><span>ScoutFox</span><em id="sfState">Idle</em></div>
+              <div class="sf-ph"><span>Tarka</span><em id="sfState">Idle</em></div>
               <div class="sf-task" id="sfTask"><span id="sfQ"></span></div>
               <ol class="sf-plan" id="sfPlan">
                 <li>Open npmjs.com</li>
@@ -805,7 +805,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
 </script>
 
 <script>
-// ScoutFox demo: a scripted run the visitor can pause, resume or stop
+// Tarka demo: a scripted run the visitor can pause, resume or stop
 (function(){
   const root=document.getElementById('sf'); if(!root)return;
   const $=id=>document.getElementById(id);
